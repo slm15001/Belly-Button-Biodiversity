@@ -24,51 +24,40 @@ function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   const url = "/samples/"+ sample;
-  d3.json(url).then(
-    (data) => {
-    var otu_ids = data.otu_ids;
-    var sample_values = data.sample_values;
-    var otu_labels = data.otu_labels
-
-    // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
+ 
    
-    var layout = {
-      height: 700,
-      width: 700,
-      paper_bgcolor:"black",
-      font:{
-       size: 18,
-       color: 'white',
-     }, 
+  d3.json(`/samples/${sample}`).then(data => {
+    var sampleValues = data.sample_values;
+    var otuIds = data.otu_ids;
+    var otuLabels = data.otu_labels;
+
+      console.log(sampleValues);
+      console.log(otuIds);
+      console.log(otuLabels);
+
+      var trace1 = {
+       x: otuIds,
+       y: sampleValues,
+       labels: otuLabels,
+       mode: 'markers',
+       marker: {
+          color: otuIds,
+          colorscale: 'Earth',
+          size: sampleValues
+        }
     };
-    Plotly.newPlot('pie', data, layout) values: sample_values.slice(0,10),
-    labels: otu_ids.slice(0,10),
-    type: 'pie',
-    // h var data = [{
-   overinfo: 'label+percent',
-    textinfo: 'percent',
-    text: otu_labels.slice(0,10),
-    hole: 0.5,
-    textfont:{
-      size: 18,
-      color: 'white',
-    },
-    marker: {
-      colors: [
-        'rgb(215,48,39)',
-        'rgb(166,206,227)',
-        'rgb(244,109,67)',
-        'rgb(253,174,97)',
-        'rgb(254,224,144)',
-        'rgb(31,120,180)',
-        'rgb(178,223,138)',
-        'rgb(116,173,209)',
-        'rgb(227,26,28)',
-        'rgb(251,154,153)'
-      ]
-    }
-  }];
+
+      var data = [trace1];
+
+      var layout = {
+        title: 'OTU vs Sample Values',
+        showlegend: false,
+      };
+
+      Plotly.newPlot('bubble', data, layout);
+
+  });
+
 
  // // @TODO: Build a Bubble Chart using the sample data
  var trace1 = {
