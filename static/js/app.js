@@ -67,45 +67,20 @@ function buildCharts(sample) {
   mode: 'markers',
   marker: {
     color: otu_ids,
-    colorscale: [
-      ['0.0', 'rgb(165,0,38)'],
-      ['0.111111111111', 'rgb(215,48,39)'],
-      ['0.222222222222', 'rgb(244,109,67)'],
-      ['0.333333333333', 'rgb(253,174,97)'],
-      ['0.444444444444', 'rgb(254,224,144)'],
-      ['0.555555555556', 'rgb(224,243,248)'],
-      ['0.666666666667', 'rgb(171,217,233)'],
-      ['0.777777777778', 'rgb(116,173,209)'],
-      ['0.888888888889', 'rgb(69,117,180)'],
-      ['1.0', 'rgb(49,54,149)']
-    ],
+    colorscale: 'Earth',
   size: sample_values
   }
 };
 var data = [trace1];
 var layout = {
-  // title: 'Bubble Chart Hover Text',
+  title: 'OTU vs Sample Values',
   showlegend: false,
-  height: 600,
-  width: 1000,
-  xaxis:{
-    title: 'Otu ID',
-    titlefont:{
-      size: 18,
-      color: '#7f7f7f'
-    },
-  yaxis:{
-    title: 'Sample Values',
-    titlefont:{
-      size: 18,
-      color: '#7f7f7f'
-    }
-  }
-  }
 };
+
 Plotly.newPlot('bubble', data, layout);
+
 });
-}  
+ 
 
 function init() {
   // Grab a reference to the dropdown select element
